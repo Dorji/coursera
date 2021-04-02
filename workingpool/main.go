@@ -17,7 +17,7 @@ func main() {
 	for _, month := range months {
 		chanForWorker <- month //кидаем дерьмо лопатами
 	}
-	close(chanForWorker) // обязательно закрывваем иначе не дождёмся выполнения
+	close(chanForWorker) // обязательно закрывваем иначе не дождёмся выполнения, закрывается (close()) когда нет данных внутри канала
 }
 
 func worker(in <-chan string, th int) {
