@@ -15,7 +15,7 @@ func main() {
 	}
 	for _, month := range months {
 		wg.Add(1)
-		startWorker(month, wg) //кидаем дерьмо лопатами
+		go startWorker(month, wg) //кидаем дерьмо лопатами параллельно
 	}
 	wg.Wait()
 
