@@ -5,11 +5,22 @@ import (
 	"time"
 )
 
+// Асинхронное получение данных для отложенного получения данных и парралельных работ
 func main() {
 	for i := 0; i < 3; i++ {
 		getPage()
 	}
 
+}
+func getPage() {
+	resultCh := getComments()
+	time.Sleep(1 * time.Second)
+	fmt.Println("get related articles")
+	//log.Fatal("sdsds") в этом случае здесь будет утечка горутин
+	//
+	commentsData := <-resultCh
+	//commentsData=<-resultCh
+	fmt.Println("main goroutine:", commentsData)
 }
 
 func getComments() chan string {
@@ -24,15 +35,4 @@ func getComments() chan string {
 	}(result)
 
 	return result
-}
-
-func getPage() {
-	resultCh := getComments()
-	time.Sleep(1 * time.Second)
-	fmt.Println("get related articles")
-	//log.Fatal("sdsds") в этом случае здесь будет утечка горутин
-	//
-	commentsData := <-resultCh
-	//commentsData=<-resultCh
-	fmt.Println("main goroutine", commentsData)
 }

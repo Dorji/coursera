@@ -11,8 +11,6 @@ func main() {
 	months := []string{
 		"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"}
 
-	for i := 0; i < 3; i++ {
-	}
 	for _, month := range months {
 		wg.Add(1) // перед запуском горутины а не в ней потому-что
 		// горутина может запуститься позже чем цикл, и в wg.wait будет 0 и всё остановится
@@ -25,6 +23,5 @@ func main() {
 
 func startWorker(cnt string, wg *sync.WaitGroup) {
 	defer wg.Done()
-
 	fmt.Println(cnt, " worked")
 }
